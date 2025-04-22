@@ -9,7 +9,7 @@ router.get('/prueba', (req, res) => {
 
 // Ruta para obtener usuarios
 router.get('/usuarios', (req, res) => {
-  const sql = 'SELECT * FROM usuarios';
+  const sql = 'SELECT * FROM usuario';
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Error al consultar la base de datos:', err);
