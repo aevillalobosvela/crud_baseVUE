@@ -1,33 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql2');
-
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
-
-// Prueba de conexión
-db.connect(err => {
-  if (err) {
-    console.error('Error al conectar a MySQL:', err);
-  } else {
-    console.log('Conectado a la base de datos MySQL');
-  }
-});
+const db = require('../database');
 
 // Ruta de prueba
 router.get('/prueba', (req, res) => {
   res.json({ mensaje: 'Ruta funcionando correctamente' });
 });
 
-// Ruta para obtener datos de una tabla
+// Ruta para obtener usuarios
 router.get('/usuarios', (req, res) => {
-  db.query('SELECT * FROM usuarios', (err, results) => {
+  const sql = 'SELECT * FROM usuarios';
+  db.query(sql, (err, results) => {
     if (err) {
-      res.status(500).json({ error: 'Error al obtener datos' });
+      console.error('Error al consultar la base de datos:', err);
+      res.status(500).json({ error: 'Error al obtener usuarios' });
     } else {
       res.json(results);
     }
