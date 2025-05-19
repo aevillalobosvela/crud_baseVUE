@@ -17,7 +17,7 @@ module.exports = {
 
         let url = null;
         if (file) {
-            url = `http://localhost:5050/uploads/${file.filename}`;
+            url = `http://localhost:3000/uploads/${file.filename}`;
             console.log(url);
         }
 
