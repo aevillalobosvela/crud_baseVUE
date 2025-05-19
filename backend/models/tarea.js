@@ -10,13 +10,13 @@ module.exports = {
     });
   },
 
-  insertar: (datos, callBack) => {
+  insertar: (url, datos, callBack) => {
     coneccion.query(
       `insert into tarea (descripcion,estado,imagen_tarea,id) values (?,?,?,?)`,
       [
         datos.descripcion,
         datos.estado,
-        datos.imagen_tarea,
+        url,
         datos.id
       ],
       (error, results, fields) => {
