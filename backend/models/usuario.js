@@ -54,4 +54,41 @@ module.exports = {
       }
     );
   },
+
+  actualizarpass: (datos, callBack) => {
+    coneccion.query(
+      `update usuario set password=? where id=?`,
+      [datos.password, datos.id],
+      (error, results) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+
+  verificar: (datos, callBack) => {
+    // Validar que ambos campos estén presentes antes de hacer la consulta
+    if (!datos.username || !datos.password) {
+      return callBack(new Error("Username o password no proporcionado"));
+    }
+  
+    coneccion.query(
+      `SELECT * FROM usuario WHERE username = ? AND password = ?`,
+      [datos.username, datos.password],
+      (error, results) => {
+        if (error) {
+          return callBack(error);
+        }
+  
+        if (results.length === 0) {
+          return callBack(new Error("Credenciales incorrectas"));
+        }
+  
+        return callBack(null, results);
+      }
+    );
+  }
+  
 }
