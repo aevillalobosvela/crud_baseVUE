@@ -1,5 +1,7 @@
 <template>
-    <div class="container-fluid d-flex justify-content-center align-items-center vh-100 fondo-oscuro">
+    <div
+        class="container-fluid d-flex justify-content-center align-items-center vh-100 fondo-oscuro"
+    >
         <div class="card p-4 shadow" style="width: 350px">
             <h3 class="text-center mb-3">Iniciar Sesión</h3>
             <form @submit.prevent="loginenter">
@@ -38,23 +40,29 @@
 <script>
 import { useAuthStore } from '../stores/counter';
 
+import index from '@/services/index';
+
 export default {
     data() {
         return {
             usuario: '',
             password: '',
             error: '',
-            authStore: useAuthStore(), // ✅ Moverlo aquí dentro
+            authStore: useAuthStore(),
         };
     },
     methods: {
-        loginenter() {
-            if (this.usuario === 'admin') {
-                this.authStore.login(this.usuario, this.password);
-                alert('Moviendose');
+        async loginenter() {
+             try {
+                const response = await index.login({
+                    username: this.usuario,
+                    password: this.password,
+                });
+                console.log(response.data.token)
+                this.authStore.login(this.usuario,response.data.token);
                 this.$router.push('/inicio');
-            } else {
-                this.error = 'Usuario no encontrado';
+            } catch (err) {
+                this.error = 'Credenciales incorrectas';
             }
         },
     },

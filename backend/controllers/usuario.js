@@ -12,6 +12,7 @@ module.exports = {
       if (err) {
         return;
       }
+      console.log(results);
       return res.json({
         datos: results,
       });
@@ -101,6 +102,7 @@ module.exports = {
   },
   verificar: (req, res) => {
     const body = req.body;
+    console.log(body);
     body.password = sha256(body.password);
     musuario.verificar(body, (err, results) => {
       if (err) {
