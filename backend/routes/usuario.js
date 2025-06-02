@@ -9,7 +9,7 @@ router.get("/lista", cusuario.listado);
 
 router.post("/insertar", cusuario.insertar);
 
-router.delete("/borrar", cusuario.borrar);
+router.delete("/borrar/:id", cusuario.borrar);
 
 router.put("/actualizar", cusuario.actualizar);
 

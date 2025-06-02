@@ -28,7 +28,7 @@ module.exports = {
 
   borrar: (datos, callBack) => {
     coneccion.query(
-      `delete from usuario where id_user=?`,
+      `delete from usuario where id=?`,
       [datos.id],
       (error, results) => {
         if (error) {
@@ -41,7 +41,7 @@ module.exports = {
 
   actualizar: (datos, callBack) => {
     coneccion.query(
-      `update usuario set username=? where id_user=?`,
+      `update usuario set username=? where id=?`,
       [
         datos.username,
         datos.id,

@@ -41,8 +41,8 @@ module.exports = {
   },
 
   borrar: (req, res) => {
-    const body = req.body;
-    musuario.borrar(body, (err, results) => {
+    const id = req.params.id;
+    musuario.borrar({ id: id }, (err, results) => {
       if (err) {
         if (!res.headersSent) {
           return res.json({
